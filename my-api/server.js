@@ -56,6 +56,7 @@ data.users = [
     id: 'abc-3', 
     username: "FaiqNaqiuddin",
   }
+
 ];
 
 const currentUserId = 'abc-1';

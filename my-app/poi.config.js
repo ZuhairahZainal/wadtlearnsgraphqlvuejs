@@ -12,7 +12,10 @@ module.exports = {
     template: path.join(__dirname, 'index.ejs')
   },
   postcss: {
-    plugins: [
+    plugins: [{
+      tailwindcss: {},
+      autoprefixer: {},
+    }
       // Your postcss plugins
     ]
   },

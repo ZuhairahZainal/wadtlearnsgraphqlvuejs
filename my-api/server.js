@@ -2,8 +2,12 @@ const { ApolloServer, gql } = require('apollo-server');
 
 const schema = gql(`
   type Query {
+    otherUser: User
+    nextUser: User
     currentUser: User
     postsByUser(userId: String!): [Post]
+    postsByOtherUser(userId: String!): [Post]
+    postsByNextUser(userId: String!): [Post]
   }
 
   type Mutation {
@@ -34,12 +38,12 @@ data.posts = [
   {
     id: 'xyz-2',
     content: "Second Post - Hello again",
-    userId: 'abc-1',
+    userId: 'abc-2',
   },
   {
     id: 'xyz-3',
-    content: "Random Post",
-    userId: 'abc-2',
+    content: "Third Post - Hello again",
+    userId: 'abc-3',
   }
 ];
 
@@ -60,6 +64,8 @@ data.users = [
 ];
 
 const currentUserId = 'abc-1';
+const otherUserId = 'abc-2';
+const nextUserId = 'abc-3';
 
 var resolvers = {
   Mutation: {
@@ -74,6 +80,14 @@ var resolvers = {
     }
   },
   Query: {
+    otherUser: (parent, args, context) => {
+      let user = context.data.users.find( u => u.id === context.otherUserId );
+      return user;
+    },
+    nextUser: (parent, args, context) => {
+      let user = context.data.users.find( u => u.id === context.nextUserId );
+      return user;
+    },
     currentUser: (parent, args, context) => {
       let user = context.data.users.find( u => u.id === context.currentUserId );
       return user;
@@ -82,6 +96,15 @@ var resolvers = {
       let posts = context.data.posts.filter( p => p.userId === args.userId ); 
       return posts
     },
+    postsByOtherUser: (parent, args, context) => {
+      let otherposts = context.data.posts.filter( p => p.userId === args.userId ); 
+      return posts
+    },
+    postsByNextUser: (parent, args, context) => {
+      let nextposts = context.data.posts.filter( p => p.userId === args.userId ); 
+      return posts
+    },
+
   },
   User: {
     posts: (parent, args, context) => {
@@ -90,13 +113,15 @@ var resolvers = {
     }
   }
 };
-
+  
 const server = new ApolloServer({ 
   typeDefs: schema, 
   resolvers: resolvers,
   context: { 
+    nextUserId,
+    otherUserId,
     currentUserId,
-    data
+    data,
   }
 });
 

@@ -23,7 +23,7 @@
 
             <tbody class="bg-white divide-y divide-gray-200">
 
-              <tr  v-for="post in posts" :key="post.userId">
+              <tr v-for="post in posts" :key="post.userId">
                <td class="px-6 py-4 whitespace-nowrap">
                   <div id="app">
                     <div class="flex items-center">
@@ -57,7 +57,7 @@
                 </td>
               </tr>
 
-              <tr>
+              <tr v-for="post in otherposts" :key="post.id">
                <td class="px-6 py-4 whitespace-nowrap">
                   <div id="app">
                     <div class="flex items-center">
@@ -76,7 +76,7 @@
 
                 <td class="px-6 py-4 whitespace-nowrap">
                   <ul>
-                    <li v-for="post in otherposts" :key="post.id">{{ post.content }}</li>
+                    <li>{{ post.content }}</li>
                   </ul>
                 </td>
 
@@ -87,11 +87,11 @@
                 </td>
 
                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <p v-for="post in otherposts" :key="post.userId">{{ post.id }}</p>
+                    <p>{{ post.id }}</p>
                 </td>
               </tr>
 
-              <tr>
+              <tr v-for="post in nextposts" :key="post.id">
                <td class="px-6 py-4 whitespace-nowrap">
                   <div id="app">
                     <div class="flex items-center">
@@ -110,7 +110,7 @@
 
                 <td class="px-6 py-4 whitespace-nowrap">
                   <ul>
-                    <li v-for="post in nextposts" :key="post.id">{{ post.content }}</li>
+                    <li>{{ post.content }}</li>
                   </ul>
                 </td>
 
@@ -121,7 +121,7 @@
                 </td>
 
                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <p v-for="post in nextposts" :key="post.id">{{ post.id }}</p>
+                    <p>{{ post.id }}</p>
                 </td>
               </tr>
 
